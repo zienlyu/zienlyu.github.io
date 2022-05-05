@@ -40,6 +40,7 @@ By fitting X_PCA and y_trn into a SVM model with a linear kernel, we obtained a 
 Then we fit X_PCA and y_trn into a logistic regression, and it turns out that we have obtained an accuracy of 0.8581 on the validation set.
 
 **3. Deep learning methods**
+
 **3.1 FFT + NN model + single-label**
 
 At first, we used the same data as before, which was the same as the X_trn, y_trn, X_val and y_val we mentioned above. Then we fit X_trn and y_trn into a two-layer neural network. The nn model consisted of a hidden layer with 1000 neurons and a Relu function as an activation function. We chose nn.CrossEntropyLoss() as the loss function and Adam as the optimizer with a default learning rate. The batch size was set at 32. When the accuracy on validation set stops increasing, we stopped the epochs. After 24 epochs, the accuracy on the validation set was 99.9926%. However, after submitting the result, the accuracy on the test data was only 0.90909.
