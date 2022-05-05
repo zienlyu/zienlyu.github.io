@@ -8,8 +8,9 @@ Hi, my name is Zien Lyu. Welcome to my website!
 
 I am now a master of Engineering Student at Cornell University, majoring in Financial Engineering.
 I finished my undergraduate studies in Nanjing University in China, majoring in Finance.
+
 I have solid financial background, and I also have strong statistical, mathematical and coding skills.
 
 I enjoy music, cooking, reading and life!
 
-You can find my email on the homepage, welcome to email me.
+You can find my email on the homepage. Welcome to email me.
