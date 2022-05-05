@@ -1,6 +1,6 @@
 # Site settings
 title: Zien Lyu
-description: 'MEng student studying at Cornell University majoring in Financial Engineering'
+description: 'student studying at Cornell University majoring in Financial Engineering'
 url: ''
 baseurl: ''
 # google_analytics: 'UA-XXXXXX-X'
@@ -41,4 +41,4 @@ kramdown:
   hard_wrap: false
 
 plugins: ['jekyll-paginate']
-exclude: ['README.md', 'Gemfile', 'Gemfile.lock', 'screenshot.png']
+exclude: ['README.md', 'Gemfile', 'Gemfile.lock']
