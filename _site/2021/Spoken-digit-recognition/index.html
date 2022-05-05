@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+
+  <title>Spoken Digit-pair Recognition</title>
+  <meta name="description" content="In this supervised learning problem, we are given the feature which is an audio file of two people speaking different digits at the same time. The labels indicate the digits they speak. Allowed digits are {1, 2, 3, 4} and there are six possible labels: {(1,2),(1,3),(1,4),(2,3),(2,4),(3,4)}. The training set consists of 90000 examples and the test set consists of 24750 examples.
+
+">
+  <meta name="author" content="Zien Lyu">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Spoken Digit-pair Recognition">
+  <meta name="twitter:description" content="In this supervised learning problem, we are given the feature which is an audio file of two people speaking different digits at the same time. The labels indicate the digits they speak. Allowed digits are {1, 2, 3, 4} and there are six possible labels: {(1,2),(1,3),(1,4),(2,3),(2,4),(3,4)}. The training set consists of 90000 examples and the test set consists of 24750 examples.
+
+">
+  
+  <meta name="twitter:image" content="/images/favicons/favicon-194x194.png" />
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Spoken Digit-pair Recognition">
+  <meta property="og:description" content="In this supervised learning problem, we are given the feature which is an audio file of two people speaking different digits at the same time. The labels indicate the digits they speak. Allowed digits are {1, 2, 3, 4} and there are six possible labels: {(1,2),(1,3),(1,4),(2,3),(2,4),(3,4)}. The training set consists of 90000 examples and the test set consists of 24750 examples.
+
+">
+  <meta property="og:image" content="/images/favicons/favicon-194x194.png" />
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-194x194.png" sizes="194x194">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/images/favicons/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/images/favicons/manifest.json">
+  <link rel="shortcut icon" href="/images/favicons/favicon.ico">
+  <meta name="msapplication-TileColor" content="#ffc40d">
+  <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  
+  <link rel="stylesheet" href="/css/main.css?1651697510980994000">
+  <link rel="canonical" href="http://localhost:4000/2021/Spoken-digit-recognition/">
+  <link rel="alternate" type="application/rss+xml" title="Zien Lyu" href="/feed.xml">
+</head>
+
+
+  <body>
+    <span class="mobile btn-mobile-menu">
+  <i class="icon icon-list btn-mobile-menu__icon"></i>
+  <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+</span>
+
+<header class="panel-cover "
+  style="background-image: url(/images/cover.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+        <a href="/" title="link to home of Zien Lyu">
+          <img src="/images/profile.jpg" class="user-image" alt="My Profile Photo">
+          <h1 class="panel-cover__title panel-title">Zien Lyu</h1>
+        </a>
+        <hr class="panel-cover__divider">
+        <p class="panel-cover__description">Studying at Cornell University majoring in Financial Engineering</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary">
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="link to Zien Lyu blog"
+                  class="blog-button">Pages</a></li>
+            </ul>
+          </nav>
+
+        <!--<nav class="cover-navigation cover-navigation--primary">-->
+          <nav class="cover-navigation navigation--resume">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="Lyu_Zien_Resume.pdf" title="link to Resume"><i class="fas fa-link fa-lg"></i>&nbsp;Resume</a></li>
+            </ul>
+          </nav>
+
+          <nav class="cover-navigation navigation--social">
+            <ul class="navigation">
+
+              
+
+              
+              <!-- Facebook -->
+              <li class="navigation__item">
+                <a href="http://fb.me/zien.lyu"
+                  title="zien.lyu on Facebook" target="_blank">
+                  <i class="icon icon-social-facebook"></i>
+                  <span class="label">Facebook</span>
+                </a>
+              </li>
+              
+
+              
+              <!-- LinkedIn -->
+              <li class="navigation__item">
+                <a href="https://www.linkedin.com/in/zienlyu"
+                  title="zienlyu on LinkedIn" target="_blank">
+                  <i class="icon icon-social-linkedin"></i>
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+              <!-- Email -->
+              <li class="navigation__item">
+                <a href="mailto:zienlyu@gmail.com" title="Email zienlyu@gmail.com" target="_blank">
+                  <i class="icon icon-mail"></i>
+                  <span class="label">Email</span>
+                </a>
+              </li>
+              
+
+              
+
+            </ul>
+          </nav>
+
+      
+      </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+      <div class="content-wrapper__inner">
+        <article class="post-container post-container--single">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2021-11-15 15:13" class="post-meta__date date">15 Nov 2021</time>
+      
+      &#8226; <span class="post-meta__tags">on <a href="/tags/#Projects">Projects</a></span>
+      
+    </div>
+    <h1 class="post-title">Spoken Digit-pair Recognition</h1>
+  </header>
+
+  <section class="post">
+    <p>In this supervised learning problem, we are given the feature which is an audio file of two people speaking different digits at the same time. The labels indicate the digits they speak. Allowed digits are {1, 2, 3, 4} and there are six possible labels: {(1,2),(1,3),(1,4),(2,3),(2,4),(3,4)}. The training set consists of 90000 examples and the test set consists of 24750 examples.</p>
+
+<p><strong>1 data processing</strong></p>
+
+<p>At first, we used the function wavfile.read() to transform the wav file into structured data. Then we used np.fft.fft() to apply Fast Fourier transform to the data so that we can extract the useful information from the audio file – the discrete Fourier transform of the sequence. The result is a complex number so we used np.real() and np.imag() to extract the real and imaginary part and deleted the symmetrical data. Finally, by using np.concatenate() to combine them into X_train whose shape is 90000*6002.</p>
+
+<p>As to labels, at first we defined a dictionary so that the six possible labels can be transformed to 0-5. We used the array y_train to denote the labels, the shape of which is 90000.</p>
+
+<p>In order to evaluate the performance of the classifiers, we divided the data into a training set and validation set by 7:3 and used X_trn, y_trn, X_val, y_val to denote the training set and validation set.</p>
+
+<p>About data processing and feature extraction, we made some changes which would be introduced in part 3, like spectrogram and multilabel.</p>
+
+<p><strong>2 traditional classification methods</strong></p>
+
+<p><strong>2.1 Naive Bayes</strong></p>
+
+<p>Firstly, we tried the Naive Bayes model. We used X_trn and y_trn to fit a Gaussian Naive Bayes model, which turned out to give an accuracy score of 0.72744 on the validation samples.</p>
+
+<p><strong>2.2 Decision Tree</strong></p>
+
+<p>After that, we implemented the decision tree classification on the training set. We used a tree with a maximum depth of 10 and the default criterion “gini”. This model gives us a similar accuracy of 0.73396 on the validation samples.</p>
+
+<p><strong>2.3 PCA feature extraction</strong></p>
+
+<p>When trying other classifiers, the training time is too long if we use all the 6002 features. So we decided to use the PCA method to extract 500 principal components from X_train and denote the training set with 300 features as X_PCA.</p>
+
+<p><strong>2.4 SVM classification</strong></p>
+
+<p>By fitting X_PCA and y_trn into a SVM model with a linear kernel, we obtained a really high accuracy of 0.99996 when predicting labels using X_val.</p>
+
+<p><strong>2.5 Logistic regression</strong></p>
+
+<p>Then we fit X_PCA and y_trn into a logistic regression, and it turns out that we have obtained an accuracy of 0.8581 on the validation set.</p>
+
+<p><strong>3. Deep learning methods</strong>
+<strong>3.1 FFT + NN model + single-label</strong></p>
+
+<p>At first, we used the same data as before, which was the same as the X_trn, y_trn, X_val and y_val we mentioned above. Then we fit X_trn and y_trn into a two-layer neural network. The nn model consisted of a hidden layer with 1000 neurons and a Relu function as an activation function. We chose nn.CrossEntropyLoss() as the loss function and Adam as the optimizer with a default learning rate. The batch size was set at 32. When the accuracy on validation set stops increasing, we stopped the epochs. After 24 epochs, the accuracy on the validation set was 99.9926%. However, after submitting the result, the accuracy on the test data was only 0.90909.</p>
+
+<p><strong>3.2 FFT + NN model + multi-label</strong></p>
+
+<p>After observing the data, we found out that there was not a “43” label in our training data. Then the original classification method cannot properly predict the “43” label. Therefore, we turned this problem into a multi-label question. We used another method to read the labels so that “21” indicated that the sample had two labels “2” and “1” . Using a one-hot vector to denote it, it becomes (1,1,0,0). We changed the loss function into nn.BCEWithLogitsLoss(). After 30 epochs, the accuracy on the validation set could achieve 99.9815%. The accuracy on the test set improved to 0.92589.</p>
+
+<p><strong>3.3 Spectrogram + CNN model + multi-label</strong></p>
+
+<p>After searching for some knowledge about audio processing, we found out that maybe spectrograms could give us more information about the audios. So we imported the librosa package and used the amplitudes as the features.</p>
+
+<p>Also, we fit the data into a convolutional neural network. We added a convolutional layer with 1 in-channels, 8 out-channels, 2 kernels and 2 paddings. After 10 epochs, the accuracy on the validation set could be decreased to 99.9704%. After submitting the result, the accuracy on the test data improved again, to 0.95410. This shows that my efforts really paid off. And this was my final result on kaggle.</p>
+
+  </section>
+  
+</article>
+
+
+
+      </div>
+
+      <footer class="footer">
+  <span class="footer__copyright">&copy; 2022 Zien Lyu. All rights reserved.</span>
+</footer>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/main.js?1651697510980994000"></script>
+
+
+    </div>
+  </body>
+</html>

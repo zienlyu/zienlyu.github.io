@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width initial-scale=1" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  
+
+  <title>Pair Trading Strategies using R</title>
+  <meta name="description" content="First of all, I would like to talk about the reason why I choose this topic. In the assignment 7, we went through a simple example of beta hedging. The problem mentioned the market neutral strategies and really gave me some ideas for a possible project.
+
+">
+  <meta name="author" content="Zien Lyu">
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Pair Trading Strategies using R">
+  <meta name="twitter:description" content="First of all, I would like to talk about the reason why I choose this topic. In the assignment 7, we went through a simple example of beta hedging. The problem mentioned the market neutral strategies and really gave me some ideas for a possible project.
+
+">
+  
+  <meta name="twitter:image" content="/images/favicons/favicon-194x194.png" />
+
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="Pair Trading Strategies using R">
+  <meta property="og:description" content="First of all, I would like to talk about the reason why I choose this topic. In the assignment 7, we went through a simple example of beta hedging. The problem mentioned the market neutral strategies and really gave me some ideas for a possible project.
+
+">
+  <meta property="og:image" content="/images/favicons/favicon-194x194.png" />
+
+  <link rel="apple-touch-icon" sizes="57x57" href="/images/favicons/apple-touch-icon-57x57.png">
+  <link rel="apple-touch-icon" sizes="60x60" href="/images/favicons/apple-touch-icon-60x60.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="/images/favicons/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicons/apple-touch-icon-76x76.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="/images/favicons/apple-touch-icon-114x114.png">
+  <link rel="apple-touch-icon" sizes="120x120" href="/images/favicons/apple-touch-icon-120x120.png">
+  <link rel="apple-touch-icon" sizes="144x144" href="/images/favicons/apple-touch-icon-144x144.png">
+  <link rel="apple-touch-icon" sizes="152x152" href="/images/favicons/apple-touch-icon-152x152.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/favicons/apple-touch-icon-180x180.png">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-32x32.png" sizes="32x32">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-194x194.png" sizes="194x194">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-96x96.png" sizes="96x96">
+  <link rel="icon" type="image/png" href="/images/favicons/android-chrome-192x192.png" sizes="192x192">
+  <link rel="icon" type="image/png" href="/images/favicons/favicon-16x16.png" sizes="16x16">
+  <link rel="manifest" href="/images/favicons/manifest.json">
+  <link rel="shortcut icon" href="/images/favicons/favicon.ico">
+  <meta name="msapplication-TileColor" content="#ffc40d">
+  <meta name="msapplication-TileImage" content="/images/favicons/mstile-144x144.png">
+  <meta name="theme-color" content="#ffffff">
+  
+  <link rel="stylesheet" href="/css/main.css?1651697510980994000">
+  <link rel="canonical" href="http://localhost:4000/2021/Pair-Trading-Strategies-using-R/">
+  <link rel="alternate" type="application/rss+xml" title="Zien Lyu" href="/feed.xml">
+</head>
+
+
+  <body>
+    <span class="mobile btn-mobile-menu">
+  <i class="icon icon-list btn-mobile-menu__icon"></i>
+  <i class="icon icon-x-circle btn-mobile-close__icon hidden"></i>
+</span>
+
+<header class="panel-cover "
+  style="background-image: url(/images/cover.jpg)">
+  <div class="panel-main">
+
+    <div class="panel-main__inner panel-inverted">
+      <div class="panel-main__content">
+        <a href="/" title="link to home of Zien Lyu">
+          <img src="/images/profile.jpg" class="user-image" alt="My Profile Photo">
+          <h1 class="panel-cover__title panel-title">Zien Lyu</h1>
+        </a>
+        <hr class="panel-cover__divider">
+        <p class="panel-cover__description">Studying at Cornell University majoring in Financial Engineering</p>
+        <hr class="panel-cover__divider panel-cover__divider--secondary">
+
+        <div class="navigation-wrapper">
+
+          <nav class="cover-navigation cover-navigation--primary">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="/#blog" title="link to Zien Lyu blog"
+                  class="blog-button">Pages</a></li>
+            </ul>
+          </nav>
+
+        <!--<nav class="cover-navigation cover-navigation--primary">-->
+          <nav class="cover-navigation navigation--resume">
+            <ul class="navigation">
+              <li class="navigation__item"><a href="Lyu_Zien_Resume.pdf" title="link to Resume"><i class="fas fa-link fa-lg"></i>&nbsp;Resume</a></li>
+            </ul>
+          </nav>
+
+          <nav class="cover-navigation navigation--social">
+            <ul class="navigation">
+
+              
+
+              
+              <!-- Facebook -->
+              <li class="navigation__item">
+                <a href="http://fb.me/zien.lyu"
+                  title="zien.lyu on Facebook" target="_blank">
+                  <i class="icon icon-social-facebook"></i>
+                  <span class="label">Facebook</span>
+                </a>
+              </li>
+              
+
+              
+              <!-- LinkedIn -->
+              <li class="navigation__item">
+                <a href="https://www.linkedin.com/in/zienlyu"
+                  title="zienlyu on LinkedIn" target="_blank">
+                  <i class="icon icon-social-linkedin"></i>
+                  <span class="label">LinkedIn</span>
+                </a>
+              </li>
+              
+
+              
+
+              
+              <!-- Email -->
+              <li class="navigation__item">
+                <a href="mailto:zienlyu@gmail.com" title="Email zienlyu@gmail.com" target="_blank">
+                  <i class="icon icon-mail"></i>
+                  <span class="label">Email</span>
+                </a>
+              </li>
+              
+
+              
+
+            </ul>
+          </nav>
+
+      
+      </div>
+
+      </div>
+
+    </div>
+
+    <div class="panel-cover--overlay"></div>
+  </div>
+</header>
+
+    <div class="content-wrapper">
+      <div class="content-wrapper__inner">
+        <article class="post-container post-container--single">
+  <header class="post-header">
+    <div class="post-meta">
+      <time datetime="2021-11-01 18:07" class="post-meta__date date">1 Nov 2021</time>
+      
+      &#8226; <span class="post-meta__tags">on <a href="/tags/#Projects">Projects</a></span>
+      
+    </div>
+    <h1 class="post-title">Pair Trading Strategies using R</h1>
+  </header>
+
+  <section class="post">
+    <p>First of all, I would like to talk about the reason why I choose this topic. In the assignment 7, we went through a simple example of beta hedging. The problem mentioned the market neutral strategies and really gave me some ideas for a possible project.</p>
+
+<p>In the CAPM theory, we have this formula, in which the variable beta indicates the correlation of the portfolio and the market. Then by combining more than one assets in the portfolio, we can in some degree get rid of the parameter beta and therefore turn our portfolio into market neutral. In this case, it doesn’t matter whether the market goes up or down, the return of our portfolio stays untouchable. Therefore, if we vanish the β, according to equation 3.2, the return is based only on the residuals term. Since the expected value of the residuals is zero, we expect a mean reverting behavior which makes it easier for the investor to apply a strategy rule on this, creating trading signals and trying to maximize the possibilities of making profit. Such portfolios are referred to the literature as market neutral portfolios.</p>
+
+<p>Pair trading is one of the most common market neutral strategy and I am going to implement it using R.</p>
+
+<p>The statistics/econometric knowledge from the class I used in this project includes time series which involve the price of stocks, CAPM model which the strategy derives from and Risk management, including the calculation of value at risk, when evaluating the performance of the strategies.</p>
+
+<p>Then we come into the part of data and methodology.</p>
+
+<p>In this project, I try to find pairs from 13 stocks in the banking industry in China which are listed in the right.</p>
+
+<p>I set the time interval as January 1st in 2018 to the last day of 2019 to avoid the influence of covid-19. Then I define a function of downloading prices from yahoo finance and use it to download the prices of the 13 stocks and interpolate the missing values. We can use the head function to view the data.</p>
+
+<p>Also, I divide the data into training set and test set. The training set is used to estimate the parameters and the test set is used to evaluate the performance of our strategy.</p>
+
+<p>First of all, I use the cointegration approach to discover stock pairs.</p>
+
+<p>Cointegration is a statistical property of a collection (X1, X2, …, Xk) of time series variables. all of the series must be integrated of order d.</p>
+
+<p>And if a linear combination of this collection is integrated of order less than d, then the collection is said to be co-integrated.</p>
+
+<p>We try to find a stock pair which is co-integrated. In other words, the prices of the stocks satisfy this equation, where w is the residual and is mean-reverting. Then we can construct a portfolio of the first stock minus gamma times the second stock. If we use small p to denote the log price, then the return can be expressed like this. As I mentioned, w is mean-reverting and we can construct signals based on that.</p>
+
+<p>The first task is to find out which pair is co-integrated. In R, we have a package called egcm, and it uses Engle-Granger cointegration test and shows the result of different unit root tests of the residual. By using the function “is-cointegrated” of the log prices, I discovered 15 co-integrated pairs among the altogether 78 pairs.</p>
+
+<p>We can take a close look at the test, if the p-value of the unit root test of the residual is less than 0.05, then we can say that the pairs are co-integrated. In this example, the p-value is bigger than 0.05 so 600000.SS and 600015.SS</p>
+
+<p>do not appear to be cointegrated. And in this example, 601398.SS and 600000.SS appear to be cointegrated</p>
+
+<p>After this, I used this function to see the p-values of ADF test. I found out that there are four pairs which had p-value smaller than 0.01 and I decided to choose the pair 600015.SS and 601169.SS as an example, which corresponded to Hua Xia Bank Co., Limited and Bank of Beijing Co., Ltd.</p>
+
+<p>I plot the log prices of these two stocks and we can easily notice their similar trends from the plot.</p>
+
+<p>Then I apply a least squares regression on the two log prices in the training set and got the parameters. I plot the result of the regression and notice that it fits quite well not only in the training period which is on the left of the blue line, but also in the test set which is on the right of the blue line.</p>
+
+<p>After that, I calculate and plot the spread, which equals to y1 mimus y2 multiplied by b, and in order to have a portfolio whose sum of weights equal to 1, I try to normalize the portfolio by dividing the original weights by (1+b). We can see that the plots of the spread before and after normalization is similar, except for the y coordinate.</p>
+
+<p>In the next step, I calculate the z-score of the spread, which equals to spread minus the mean and then divide it by the standard deviation. I set the threshold as 0.7.</p>
+
+<p>Based on this, I can define the function to generate the signals.</p>
+
+<p>As to the Initial position</p>
+
+<p>If z-score &lt;= -0.7, then we take the long position</p>
+
+<p>If z-score &gt;= 0.7, then we take the short position</p>
+
+<p>After that,</p>
+
+<p>If we are not in a position,</p>
+
+<p>Similar with above</p>
+
+<p>If we are in a long position,</p>
+
+<p>If z-score &gt;= 0,  close the position</p>
+
+<p>If we are in a short position,</p>
+
+<p>If z-score &lt;= 0, close the position</p>
+
+<p>Then I use the function to generate the signals and the red line indicates the signals.</p>
+
+<p>We can calculate the returns and signals. Similarly, on the left of the blue line is the training set and on the right of the blue line is the test set.</p>
+
+<p>Also, we can use the PerformanceAnalytics package to plot the drawdown and calculate some important backtest indicators like standard deviation, value at risk and Sharpe ratio. By the way, the returns used in the package is the test set. We can see that this strategy has a backtest Sharpe ratio of 1.247878.</p>
+
+<p>Back to the original idea of constructing pairs, we try to see its correlation with CAPM. Here, 000001.SS represents the SSE Composite Index, the return of which can in some degree indicate the market return.</p>
+
+<p>The pair we construct has the spread_return and the ß is 0.065.</p>
+
+<p>While each separate stock in the pair has ß which equals to 0.83 and 0.66, much higher than the portfolio.</p>
+
+<p>The result corresponds to our goal of achieving small ß to remove the market risk exposure.</p>
+
+<p>In this slide, I also provide the plots of the returns of other three possible pairs. The procedure is similar and is omitted here.</p>
+
+<p>Another popular approach is based on distance. In this part, I define a function SSD to calculate the distance of the normalized prices.</p>
+
+<p>By calculating the distances, I chose the pair with the least distance, which is coincidentally the pair “600015.SS””601169.SS”. Also, I design the signals based on the spread, as is shown in this slide. Then, in the part of evaluation, we can see that the backtest Sharpe ratio of 1.545734 and the value at risk is -0.0052.</p>
+
+<p>As to the conclusion, By choosing pairs from 13 stocks in the bank industry in China and using the data in 2018 and 2019, we successfully discovered stock pairs and  implemented the strategies of pair trading. The strategies from both the co-integration approach and the minimum distance approach are shown to be profitable.</p>
+
+<p>In practical application, the situation might be more complex, considering the transaction costs and limitations on trading. Therefore, we need more trials to determine some parameters in our strategy like the choice of n when determining the thresholds.</p>
+
+<p>There are also some new research in the construction of pair trading strategy. For example, some researchers pay attention to the Kalman filter. Some researchers try to combine the GARCH model. And also, the application of machine learning methods in market neutral strategies has been more and more popular.</p>
+
+  </section>
+  
+</article>
+
+
+
+      </div>
+
+      <footer class="footer">
+  <span class="footer__copyright">&copy; 2022 Zien Lyu. All rights reserved.</span>
+</footer>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript" src="/js/main.js?1651697510980994000"></script>
+
+
+    </div>
+  </body>
+</html>

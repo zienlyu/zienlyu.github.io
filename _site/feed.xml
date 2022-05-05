@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Zien Lyu</title>
+    <description>Studying at Cornell University majoring in Financial Engineering</description>
+    <link>http://localhost:4000/</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    <pubDate>Wed, 04 May 2022 16:51:50 -0400</pubDate>
+    <lastBuildDate>Wed, 04 May 2022 16:51:50 -0400</lastBuildDate>
+    <generator>Jekyll v3.9.2</generator>
+    
+      <item>
+        <title>About me!</title>
+        <description>&lt;p&gt;Hi, my name is Zien Lyu. Welcome to my website!&lt;/p&gt;
+
+&lt;p&gt;I am now a master of Engineering Student at Cornell University, majoring in Financial Engineering.
+I finished my undergraduate studies in Nanjing University, majoring in Finance.&lt;/p&gt;
+
+&lt;p&gt;I enjoy music, cooking, reading and life!&lt;/p&gt;
+</description>
+        <pubDate>Wed, 04 May 2022 05:22:49 -0400</pubDate>
+        <link>http://localhost:4000/2022/About-me/</link>
+        <guid isPermaLink="true">http://localhost:4000/2022/About-me/</guid>
+        
+        <category>General</category>
+        
+        
+        <category>General</category>
+        
+      </item>
+    
+      <item>
+        <title>Spoken Digit-pair Recognition</title>
+        <description>&lt;p&gt;In this supervised learning problem, we are given the feature which is an audio file of two people speaking different digits at the same time. The labels indicate the digits they speak. Allowed digits are {1, 2, 3, 4} and there are six possible labels: {(1,2),(1,3),(1,4),(2,3),(2,4),(3,4)}. The training set consists of 90000 examples and the test set consists of 24750 examples.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;1 data processing&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;At first, we used the function wavfile.read() to transform the wav file into structured data. Then we used np.fft.fft() to apply Fast Fourier transform to the data so that we can extract the useful information from the audio file – the discrete Fourier transform of the sequence. The result is a complex number so we used np.real() and np.imag() to extract the real and imaginary part and deleted the symmetrical data. Finally, by using np.concatenate() to combine them into X_train whose shape is 90000*6002.&lt;/p&gt;
+
+&lt;p&gt;As to labels, at first we defined a dictionary so that the six possible labels can be transformed to 0-5. We used the array y_train to denote the labels, the shape of which is 90000.&lt;/p&gt;
+
+&lt;p&gt;In order to evaluate the performance of the classifiers, we divided the data into a training set and validation set by 7:3 and used X_trn, y_trn, X_val, y_val to denote the training set and validation set.&lt;/p&gt;
+
+&lt;p&gt;About data processing and feature extraction, we made some changes which would be introduced in part 3, like spectrogram and multilabel.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2 traditional classification methods&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.1 Naive Bayes&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Firstly, we tried the Naive Bayes model. We used X_trn and y_trn to fit a Gaussian Naive Bayes model, which turned out to give an accuracy score of 0.72744 on the validation samples.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.2 Decision Tree&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;After that, we implemented the decision tree classification on the training set. We used a tree with a maximum depth of 10 and the default criterion “gini”. This model gives us a similar accuracy of 0.73396 on the validation samples.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.3 PCA feature extraction&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;When trying other classifiers, the training time is too long if we use all the 6002 features. So we decided to use the PCA method to extract 500 principal components from X_train and denote the training set with 300 features as X_PCA.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.4 SVM classification&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;By fitting X_PCA and y_trn into a SVM model with a linear kernel, we obtained a really high accuracy of 0.99996 when predicting labels using X_val.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;2.5 Logistic regression&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Then we fit X_PCA and y_trn into a logistic regression, and it turns out that we have obtained an accuracy of 0.8581 on the validation set.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3. Deep learning methods&lt;/strong&gt;
+&lt;strong&gt;3.1 FFT + NN model + single-label&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;At first, we used the same data as before, which was the same as the X_trn, y_trn, X_val and y_val we mentioned above. Then we fit X_trn and y_trn into a two-layer neural network. The nn model consisted of a hidden layer with 1000 neurons and a Relu function as an activation function. We chose nn.CrossEntropyLoss() as the loss function and Adam as the optimizer with a default learning rate. The batch size was set at 32. When the accuracy on validation set stops increasing, we stopped the epochs. After 24 epochs, the accuracy on the validation set was 99.9926%. However, after submitting the result, the accuracy on the test data was only 0.90909.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3.2 FFT + NN model + multi-label&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;After observing the data, we found out that there was not a “43” label in our training data. Then the original classification method cannot properly predict the “43” label. Therefore, we turned this problem into a multi-label question. We used another method to read the labels so that “21” indicated that the sample had two labels “2” and “1” . Using a one-hot vector to denote it, it becomes (1,1,0,0). We changed the loss function into nn.BCEWithLogitsLoss(). After 30 epochs, the accuracy on the validation set could achieve 99.9815%. The accuracy on the test set improved to 0.92589.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;3.3 Spectrogram + CNN model + multi-label&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;After searching for some knowledge about audio processing, we found out that maybe spectrograms could give us more information about the audios. So we imported the librosa package and used the amplitudes as the features.&lt;/p&gt;
+
+&lt;p&gt;Also, we fit the data into a convolutional neural network. We added a convolutional layer with 1 in-channels, 8 out-channels, 2 kernels and 2 paddings. After 10 epochs, the accuracy on the validation set could be decreased to 99.9704%. After submitting the result, the accuracy on the test data improved again, to 0.95410. This shows that my efforts really paid off. And this was my final result on kaggle.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 15 Nov 2021 15:13:45 -0500</pubDate>
+        <link>http://localhost:4000/2021/Spoken-digit-recognition/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/Spoken-digit-recognition/</guid>
+        
+        <category>Projects</category>
+        
+        
+        <category>Projects</category>
+        
+      </item>
+    
+      <item>
+        <title>Pair Trading Strategies using R</title>
+        <description>&lt;p&gt;First of all, I would like to talk about the reason why I choose this topic. In the assignment 7, we went through a simple example of beta hedging. The problem mentioned the market neutral strategies and really gave me some ideas for a possible project.&lt;/p&gt;
+
+&lt;p&gt;In the CAPM theory, we have this formula, in which the variable beta indicates the correlation of the portfolio and the market. Then by combining more than one assets in the portfolio, we can in some degree get rid of the parameter beta and therefore turn our portfolio into market neutral. In this case, it doesn’t matter whether the market goes up or down, the return of our portfolio stays untouchable. Therefore, if we vanish the β, according to equation 3.2, the return is based only on the residuals term. Since the expected value of the residuals is zero, we expect a mean reverting behavior which makes it easier for the investor to apply a strategy rule on this, creating trading signals and trying to maximize the possibilities of making profit. Such portfolios are referred to the literature as market neutral portfolios.&lt;/p&gt;
+
+&lt;p&gt;Pair trading is one of the most common market neutral strategy and I am going to implement it using R.&lt;/p&gt;
+
+&lt;p&gt;The statistics/econometric knowledge from the class I used in this project includes time series which involve the price of stocks, CAPM model which the strategy derives from and Risk management, including the calculation of value at risk, when evaluating the performance of the strategies.&lt;/p&gt;
+
+&lt;p&gt;Then we come into the part of data and methodology.&lt;/p&gt;
+
+&lt;p&gt;In this project, I try to find pairs from 13 stocks in the banking industry in China which are listed in the right.&lt;/p&gt;
+
+&lt;p&gt;I set the time interval as January 1st in 2018 to the last day of 2019 to avoid the influence of covid-19. Then I define a function of downloading prices from yahoo finance and use it to download the prices of the 13 stocks and interpolate the missing values. We can use the head function to view the data.&lt;/p&gt;
+
+&lt;p&gt;Also, I divide the data into training set and test set. The training set is used to estimate the parameters and the test set is used to evaluate the performance of our strategy.&lt;/p&gt;
+
+&lt;p&gt;First of all, I use the cointegration approach to discover stock pairs.&lt;/p&gt;
+
+&lt;p&gt;Cointegration is a statistical property of a collection (X1, X2, …, Xk) of time series variables. all of the series must be integrated of order d.&lt;/p&gt;
+
+&lt;p&gt;And if a linear combination of this collection is integrated of order less than d, then the collection is said to be co-integrated.&lt;/p&gt;
+
+&lt;p&gt;We try to find a stock pair which is co-integrated. In other words, the prices of the stocks satisfy this equation, where w is the residual and is mean-reverting. Then we can construct a portfolio of the first stock minus gamma times the second stock. If we use small p to denote the log price, then the return can be expressed like this. As I mentioned, w is mean-reverting and we can construct signals based on that.&lt;/p&gt;
+
+&lt;p&gt;The first task is to find out which pair is co-integrated. In R, we have a package called egcm, and it uses Engle-Granger cointegration test and shows the result of different unit root tests of the residual. By using the function “is-cointegrated” of the log prices, I discovered 15 co-integrated pairs among the altogether 78 pairs.&lt;/p&gt;
+
+&lt;p&gt;We can take a close look at the test, if the p-value of the unit root test of the residual is less than 0.05, then we can say that the pairs are co-integrated. In this example, the p-value is bigger than 0.05 so 600000.SS and 600015.SS&lt;/p&gt;
+
+&lt;p&gt;do not appear to be cointegrated. And in this example, 601398.SS and 600000.SS appear to be cointegrated&lt;/p&gt;
+
+&lt;p&gt;After this, I used this function to see the p-values of ADF test. I found out that there are four pairs which had p-value smaller than 0.01 and I decided to choose the pair 600015.SS and 601169.SS as an example, which corresponded to Hua Xia Bank Co., Limited and Bank of Beijing Co., Ltd.&lt;/p&gt;
+
+&lt;p&gt;I plot the log prices of these two stocks and we can easily notice their similar trends from the plot.&lt;/p&gt;
+
+&lt;p&gt;Then I apply a least squares regression on the two log prices in the training set and got the parameters. I plot the result of the regression and notice that it fits quite well not only in the training period which is on the left of the blue line, but also in the test set which is on the right of the blue line.&lt;/p&gt;
+
+&lt;p&gt;After that, I calculate and plot the spread, which equals to y1 mimus y2 multiplied by b, and in order to have a portfolio whose sum of weights equal to 1, I try to normalize the portfolio by dividing the original weights by (1+b). We can see that the plots of the spread before and after normalization is similar, except for the y coordinate.&lt;/p&gt;
+
+&lt;p&gt;In the next step, I calculate the z-score of the spread, which equals to spread minus the mean and then divide it by the standard deviation. I set the threshold as 0.7.&lt;/p&gt;
+
+&lt;p&gt;Based on this, I can define the function to generate the signals.&lt;/p&gt;
+
+&lt;p&gt;As to the Initial position&lt;/p&gt;
+
+&lt;p&gt;If z-score &amp;lt;= -0.7, then we take the long position&lt;/p&gt;
+
+&lt;p&gt;If z-score &amp;gt;= 0.7, then we take the short position&lt;/p&gt;
+
+&lt;p&gt;After that,&lt;/p&gt;
+
+&lt;p&gt;If we are not in a position,&lt;/p&gt;
+
+&lt;p&gt;Similar with above&lt;/p&gt;
+
+&lt;p&gt;If we are in a long position,&lt;/p&gt;
+
+&lt;p&gt;If z-score &amp;gt;= 0,  close the position&lt;/p&gt;
+
+&lt;p&gt;If we are in a short position,&lt;/p&gt;
+
+&lt;p&gt;If z-score &amp;lt;= 0, close the position&lt;/p&gt;
+
+&lt;p&gt;Then I use the function to generate the signals and the red line indicates the signals.&lt;/p&gt;
+
+&lt;p&gt;We can calculate the returns and signals. Similarly, on the left of the blue line is the training set and on the right of the blue line is the test set.&lt;/p&gt;
+
+&lt;p&gt;Also, we can use the PerformanceAnalytics package to plot the drawdown and calculate some important backtest indicators like standard deviation, value at risk and Sharpe ratio. By the way, the returns used in the package is the test set. We can see that this strategy has a backtest Sharpe ratio of 1.247878.&lt;/p&gt;
+
+&lt;p&gt;Back to the original idea of constructing pairs, we try to see its correlation with CAPM. Here, 000001.SS represents the SSE Composite Index, the return of which can in some degree indicate the market return.&lt;/p&gt;
+
+&lt;p&gt;The pair we construct has the spread_return and the ß is 0.065.&lt;/p&gt;
+
+&lt;p&gt;While each separate stock in the pair has ß which equals to 0.83 and 0.66, much higher than the portfolio.&lt;/p&gt;
+
+&lt;p&gt;The result corresponds to our goal of achieving small ß to remove the market risk exposure.&lt;/p&gt;
+
+&lt;p&gt;In this slide, I also provide the plots of the returns of other three possible pairs. The procedure is similar and is omitted here.&lt;/p&gt;
+
+&lt;p&gt;Another popular approach is based on distance. In this part, I define a function SSD to calculate the distance of the normalized prices.&lt;/p&gt;
+
+&lt;p&gt;By calculating the distances, I chose the pair with the least distance, which is coincidentally the pair “600015.SS””601169.SS”. Also, I design the signals based on the spread, as is shown in this slide. Then, in the part of evaluation, we can see that the backtest Sharpe ratio of 1.545734 and the value at risk is -0.0052.&lt;/p&gt;
+
+&lt;p&gt;As to the conclusion, By choosing pairs from 13 stocks in the bank industry in China and using the data in 2018 and 2019, we successfully discovered stock pairs and  implemented the strategies of pair trading. The strategies from both the co-integration approach and the minimum distance approach are shown to be profitable.&lt;/p&gt;
+
+&lt;p&gt;In practical application, the situation might be more complex, considering the transaction costs and limitations on trading. Therefore, we need more trials to determine some parameters in our strategy like the choice of n when determining the thresholds.&lt;/p&gt;
+
+&lt;p&gt;There are also some new research in the construction of pair trading strategy. For example, some researchers pay attention to the Kalman filter. Some researchers try to combine the GARCH model. And also, the application of machine learning methods in market neutral strategies has been more and more popular.&lt;/p&gt;
+</description>
+        <pubDate>Mon, 01 Nov 2021 18:07:07 -0400</pubDate>
+        <link>http://localhost:4000/2021/Pair-Trading-Strategies-using-R/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/Pair-Trading-Strategies-using-R/</guid>
+        
+        <category>Projects</category>
+        
+        
+        <category>Projects</category>
+        
+      </item>
+    
+      <item>
+        <title>Institutional Investor Networks and the Risk of Stock Price Collapses</title>
+        <description>&lt;p&gt;Employed Python and Stata to construct institutional investor networks, analyze the impact of network indicators on stock price collapses through panel data regression and explore the influence mechanism.&lt;/p&gt;
+
+&lt;p&gt;In this paper, the social network theory is used to construct an institutional investor network based on whether they hold the same stocks heavily. The impact of network indicators and stock price crash risk is explored through panel data regression, and the influence mechanism is explored.&lt;/p&gt;
+
+&lt;p&gt;The empirical results show that the scale and balance of the network and stock price crash risk show significant positive correlation, network density showed significant negative correlation with the concentration and stock price crash risk. This conclusion means that institutional investors network impact on stock price crash risk is not homogeneous, reflect the characteristics of the different structure of the indicators will affect stock price in a different way the possibility of a crash.&lt;/p&gt;
+
+&lt;p&gt;At the same time, through the test of mediating effect, this paper finds that there is partial mediating effect in most of the influences of information delay, that is, institutional investor network often influences the abnormal fluctuation of stock price through the medium of information transmission, and further influences the crash risk. On this basis, this paper further puts forward targeted policy suggestions in order to prevent the malignant influence of stock price crash more effectively.&lt;/p&gt;
+
+&lt;p&gt;First of all, according to the stock investment details of institutional investors, the fund-stock network for each quarter is constructed. If the market value of stock I held by fund J in that quarter accounts for 5% or more of its net value, it is considered that there is an edge between fund J and stock I, and the value of matrix position (J, I) is 1; otherwise, it is 0. Specific expressions are as follows:&lt;/p&gt;
+
+&lt;p&gt;Assuming that the corresponding matrix of the two-mode network is A, by multiplying the transpose matrix of A and A, I can obtain a one-mode network B consisting of nodes of the fund type.&lt;/p&gt;
+
+&lt;p&gt;On this basis, the institutional investor network corresponding to stock I is constructed according to the following criteria. If the set formed by all funds holding heavy position of share I is called J(I), then the fund network N(I) corresponding to stock I is the union of all elements in Net(J(I)) of each fund in J(I).&lt;/p&gt;
+</description>
+        <pubDate>Fri, 28 May 2021 12:33:18 -0400</pubDate>
+        <link>http://localhost:4000/2021/Institutional-Investor-Networks-and-the-Risk-of-Stock-Price-Collapses/</link>
+        <guid isPermaLink="true">http://localhost:4000/2021/Institutional-Investor-Networks-and-the-Risk-of-Stock-Price-Collapses/</guid>
+        
+        <category>Projects</category>
+        
+        
+        <category>Projects</category>
+        
+      </item>
+    
+  </channel>
+</rss>
